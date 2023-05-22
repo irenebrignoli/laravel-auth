@@ -25,14 +25,17 @@
         @include('partials.header')
 
         <main>
-            <div class="row">
-                <div class="col-2">
-                    @include('partials.sidebar')
-                </div>
-                <div class="col-10">
-                    @yield('content')
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        @include('partials.sidebar')
+                    </div>
+                    <div class="col-10">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
+            
         </main>
     </div>
 </body>
