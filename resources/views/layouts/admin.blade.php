@@ -25,7 +25,7 @@
         @include('partials.header')
 
         <main>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-2">
                         @include('partials.sidebar')
