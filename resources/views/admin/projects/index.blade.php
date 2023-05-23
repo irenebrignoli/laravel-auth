@@ -9,6 +9,7 @@
   <table class="table table-striped my-4">
     <thead>
       <tr>
+        <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">Image</th>
         <th scope="col">Description</th>
@@ -18,16 +19,17 @@
     <tbody>
       @foreach ( $projects as $project )
       <tr>
+        <td>{{$project->id}}</td>
         <td>{{$project->title}}</td>
         <td><img class="personal_img_sm" src="{{$project->image}}" alt=""></td>
         <td class="text-wrap">{{substr($project->description, 0, 200,)}}...</td>
         <td>
           <div class="d-flex gap-3">
 
-            <a class="btn btn-info"  href="{{route('admin.projects.show', $project->slug)}}">Show</a>
-            <a class="btn btn-warning"  href="{{route('admin.projects.edit', $project->slug)}}">Edit</a>
+            <a class="btn btn-info"  href="{{route('admin.projects.show', ['project' => $project->slug])}}">Show</a>
+            <a class="btn btn-warning"  href="{{route('admin.projects.edit', ['project' => $project->slug])}}">Edit</a>
           
-            <form class="form_delete_post" action="{{route('admin.projects.destroy', ['projects' => $project->slug])}}" method="POST">
+            <form class="form_delete_post" action="{{route('admin.projects.destroy', ['project' => $project->slug])}}" method="POST">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">Delete</button>
