@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Reset Password')
+
 @section('content')
 <div class="container mt-4">
     <div class="row justify-content-center">

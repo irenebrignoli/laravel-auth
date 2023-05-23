@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page-title', 'Dashboard')
+
 @section('content')
 <div class="container">
     <h2 class="fs-4 text-secondary my-4">
