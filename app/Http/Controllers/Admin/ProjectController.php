@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -33,11 +34,23 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        $form_data = $request->validated();
+
+        $form_data['slug'] = Project::generateSlug($request->title);
+
+        $checkProject = Project::where('slug', $form_data['slug'])->first();
+        if ($checkProject) {
+            return back()->withInput()->withErrors(['slug' => 'Unable to create slug for this project, please change the title']);
+        }
+        
+        
+        $newProject = Project::create($form_data);
+
+        return redirect()->route('admin.projects.show', ['project' => $newProject->slug])->with('status', 'Project created!');
     }
 
     /**
@@ -55,11 +68,11 @@ class ProjectController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -67,11 +80,22 @@ class ProjectController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+ 
      */
-    public function update(Request $request, Project $project)
+    public function update(StoreProjectRequest $request, Project $project)
     {
-        //
+        $form_data = $request->validated();
+
+        $form_data['slug'] = Project::generateSlug($request->title);
+
+        $checkProject = Project::where('slug', $form_data['slug'])->first();
+        if ($checkProject) {
+            return back()->withInput()->withErrors(['slug' => 'Unable to create slug']);
+        }
+        
+        $project -> update($form_data);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('status', 'Project updated!');
     }
 
     /**

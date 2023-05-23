@@ -25,6 +25,24 @@
         @include('partials.header')
 
         <main>
+            @if ($errors->any())
+            <div class="error-message d-flex justify-content-center">
+              <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+              </div>
+            </div>
+          @endif
+    
+          @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+          @endif
+          
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-2">

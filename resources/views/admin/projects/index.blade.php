@@ -6,6 +6,8 @@
   
   <h2 class="fs-4 text-secondary mt-4">My projects list</h2>
 
+  <a class="btn btn-primary mt-4"  href="{{route('admin.projects.create')}}">Create  new Project</a>
+
   <table class="table table-striped my-4">
     <thead>
       <tr>
